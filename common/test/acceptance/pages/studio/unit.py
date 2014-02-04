@@ -7,6 +7,7 @@ from bok_choy.query import SubQuery
 from bok_choy.promise import EmptyPromise, fulfill
 
 from . import BASE_URL
+from .container import ContainerPage
 
 
 class UnitPage(PageObject):
@@ -105,3 +106,10 @@ class Component(PageObject):
     @property
     def editor_selector(self):
         return self._bounded_selector('.xblock-studio_view')
+
+    def go_to_container(self):
+        """
+        Open the container page linked to by this component, and return
+        an initialized :class:`.ContainerPage` for that xblock.
+        """
+        return ContainerPage(self.browser, self.locator).visit()
