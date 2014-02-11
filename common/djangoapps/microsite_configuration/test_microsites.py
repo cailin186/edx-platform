@@ -23,10 +23,10 @@ class MicroSiteTests(TestCase):
     def test_platform_name(self):
         pname = microsite.platform_name()
         self.assertEqual(pname, settings.PLATFORM_NAME)
-    
+
     def test_breadcrumb_tag(self):
         crumbs = ['my', 'less specific', 'Page']
         expected = u'my | less specific | Page | edX'
         title = microsite.page_title_breadcrumbs_tag(None, *crumbs)
         self.assertEqual(expected, title)
-        
+
