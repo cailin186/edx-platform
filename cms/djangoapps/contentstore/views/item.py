@@ -203,7 +203,7 @@ def xblock_view_handler(request, package_id, view_name, tag=None, branch=None, v
                 log.debug("unable to render studio_view for %r", component, exc_info=True)
                 fragment = Fragment(render_to_string('html_error.html', {'message': str(exc)}))
 
-            store.save_xmodule(component)
+            store.update_item(component, request.user.id)
 
         elif view_name == 'student_view':
             fragment = get_preview_fragment(request, component)
