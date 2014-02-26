@@ -354,6 +354,6 @@ def component_handler(request, usage_id, handler, suffix=''):
         log.info("XBlock %s attempted to access missing handler %r", descriptor, handler, exc_info=True)
         raise Http404
 
-    modulestore().update_item(descriptor)
+    modulestore().update_item(descriptor, request.user.id)
 
     return webob_to_django_response(resp)
