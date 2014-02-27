@@ -9,6 +9,7 @@ HTTP_X_FORWARDED_FOR).
 """
 
 import pygeoip
+import django.core.exceptions
 
 from django.conf import settings
 from django.shortcuts import redirect
@@ -26,9 +27,9 @@ class EmbargoMiddleware(object):
     using the django admin site.
     """
     def __init__(self):
-        # If embargoing is not turned out, make this middleware do nothing
-        if not settings.FEATURES.get('EMBARGO', False):
-            self.process_request = self.return_unaltered
+        # If embargoing is turned off, make this middleware do nothing
+        if settings.FEATURES.get('EMBARGO', False):
+            raise django.core.exceptions.MiddlewareNotUsed()
 
     def return_unaltered(self, request):
         return
